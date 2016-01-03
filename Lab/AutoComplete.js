@@ -36,5 +36,6 @@ function solve(arr) {
 
 solve([
     'GET POST if getMemory reset rebuild recap resit',
-    'r'
+    'r',
+    'goat'
 ]);
