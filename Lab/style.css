@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.float {
+    float: left;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+div:first-child {
+    border-right: 1px solid grey;
+}
+
+label {
+    display: block;
+}
+
+label, span {
+    text-decoration: underline;
+    font-weight: bold;
+}
+#suggestions {
+    clear: both;
+}
