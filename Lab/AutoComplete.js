@@ -18,8 +18,8 @@ function solve(arr) {
             if(x.length == y.length) {
                 return x > y;
             }
-            
-            return x.length - y.length; 
+
+            return x.length - y.length;
         });
 
         return words[0];
@@ -36,5 +36,5 @@ function solve(arr) {
 
 solve([
     'GET POST if getMemory reset rebuild recap resit',
-    'r',
+    'r'
 ]);

@@ -32,5 +32,14 @@ function suggest() {
     suggestion.innerText = matchWord(text, words);
 }
 
+function complete(e) {
+    if(e.keyCode == 13) {
+        input.value = suggestion.innerText;
+        var li = document.createElement('li');
+        li.innerText = input.value;
+        document.getElementsByTagName('ul')[0].appendChild(li);
+    }
+}
+
 document.getElementById('text').addEventListener('keyup', suggest);
-//document.getElementById('text').addEventListener('keyup', suggest);
+document.getElementById('text').addEventListener('keypress', complete);
