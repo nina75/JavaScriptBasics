@@ -76,7 +76,7 @@ function solve(arr) {
             if(lettuce !== null) {
                 countOfLettuce += lettuce.length;
             }
-            var food = el.replace(/{\*}/g, '@').replace(/{#}/g, '@').replace(/{!}/g, '@').replace(/{&}/g, '@');
+            var food = el.replace(/{[#\*!&]}/g, '@');
             output.push(food);
         })
     }
