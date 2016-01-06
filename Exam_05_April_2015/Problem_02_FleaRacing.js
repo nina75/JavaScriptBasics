@@ -71,7 +71,6 @@ function solve(arr) {
         }
 
         return row;
-
     }
 }
 
@@ -113,3 +112,6 @@ solve([
     '10',
     'Suzi, 5'
 ]);
+
+var arr = new Array(6).join('#');
+console.log(arr);
