@@ -29,3 +29,4 @@ solve([
     'coin hundred',
     'cigars 1'
 ]);
+function isInt(n) {  return  n % 1 === 0;  }
