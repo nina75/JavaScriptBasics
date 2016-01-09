@@ -8,8 +8,9 @@ function solve(arr) {
             course = tokens[2],
             examResult = tokens[3] | 0;
         if(examResult >= 0 && examResult <= 400) {
+            var newStudent = {name: studentName, result:examResult, makeUpExams: 0};
             if(!results[course]) {
-                results[course] = [{name: studentName, result:examResult, makeUpExams: 0}];
+                results[course] = [newStudent];
             } else {
                 var student = results[course].filter(function(el) {return el.name == studentName})[0];
                 if (student) {
@@ -18,7 +19,7 @@ function solve(arr) {
                         student.result = examResult;
                     }
                 } else {
-                    results[course].push({name: studentName, result:examResult, makeUpExams: 0});
+                    results[course].push(newStudent);
                 }
             }
         }
