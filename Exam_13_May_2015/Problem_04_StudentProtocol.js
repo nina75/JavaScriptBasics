@@ -29,7 +29,7 @@ function solve(arr) {
         sortedStudents[course] = students[course].sort(function(x, y) {
             if(x.result == y.result) {
                 if(x.makeUpExams == y.makeUpExams) {
-                    return x.name.localeCompare(y.name);
+                    return x.name > y.name;
                 }
                 return x.makeUpExams - y.makeUpExams;
             }
@@ -40,13 +40,21 @@ function solve(arr) {
     console.log(JSON.stringify(sortedStudents));
 }
 
+//solve([
+//    'Mila Kunis - C# : 200',
+//    'Mila Kunis - Java : 100',
+//    'Mila Kunis                          -PHP : 350',
+//    'Mila Kunis-HTML & CSS:400',
+//    'Jessica Clement - C# : 200',
+//    'Jessica Clement - Java : 100',
+//    'Jessica Clement - Java : 100',
+//    'Jessica Clement-PHP:300'
+//]);
+
 solve([
-    'Mila Kunis - C# : 200',
-    'Mila Kunis - Java : 100',
-    'Mila Kunis                          -PHP : 350',
-    'Mila Kunis-HTML & CSS:400',
-    'Jessica Clement - C# : 200',
-    'Jessica Clement - Java : 100',
-    'Jessica Clement - Java : 100',
-    'Jessica Clement-PHP:300'
+    'Selena Gomez - HTML & CSS : 400',
+    'Vanessa Hudgens - HTML & CSS : 300',
+    'Vanessa Hudgens            -      HTML & CSS       :    300',
+    'Vanessa Hudgens-HTML & CSS : 250',
+    'Vanessa Hudgens -HTML & CSS: 350'
 ]);
