@@ -4,7 +4,7 @@ function solve(arr) {
         sortedStudents = {};
     arr.forEach(function(el) {
         var tokens = el.match(regex),
-            studentName = tokens[1],
+            studentName = tokens[1].trim(),
             course = tokens[2],
             examResult = tokens[3] | 0;
         if(examResult >= 0 && examResult <= 400) {
