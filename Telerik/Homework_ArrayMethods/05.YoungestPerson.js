@@ -14,10 +14,11 @@ if (!Array.prototype.find) {
 }
 
 function findYoungestPerson(arr) {
-    return arr
+    var youngestPerson = arr
         .filter(function(el) { return !el.gender; })
         .sort(function(x, y){ return x.age - y.age; })
         .find(function(el){ return el; });
+    return youngestPerson.firstName + ' ' + youngestPerson.lastName;
 }
 
 var persons = [
