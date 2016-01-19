@@ -19,7 +19,7 @@ function findMaxSequence(arr) {
     return (new Array(maxLen)).fill(element);
 }
 
-var arr = [1, 1, 1, 1, 3, 4, 4, 4, 4, 4, 5, 6, 7, 5, 5, 5, 5, 5, 5];
+var arr = [2, 1, 1, 2, 3, 3, 2, 2, 2, 1];
 console.log(findMaxSequence(arr).join(', '));
 
 
