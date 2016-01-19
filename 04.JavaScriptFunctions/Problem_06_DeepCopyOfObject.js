@@ -2,6 +2,7 @@ function clone(obj) {
     if (obj == null || typeof obj != "object") {
         return obj;
     }
+
     var copy = {};
     for (var attr in obj) {
         if(typeof (obj[attr]) == 'object') {
