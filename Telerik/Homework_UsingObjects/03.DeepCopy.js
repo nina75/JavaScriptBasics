@@ -4,16 +4,11 @@ function clone(obj) {
     if(obj === null || typeof obj !== 'object') {
         return obj;
     }
-
-    var copy = {};
+    var copyAsObj = {};
     for(var prop in obj) {
-        if(typeof obj[prop] == 'object') {
-            copy[prop] = clone(obj[prop]);
-        } else {
-            copy[prop] = obj[prop];
-        }
+        copyAsObj[prop] = clone(obj[prop]);
     }
-    return copy;
+    return copyAsObj;
 }
 
 var gosho = {name: 'Gosho', age: 6, marks:[4, 5, 6], cars: [{model:'mazda', age: 10}, {model:'peso', age:22}]};
