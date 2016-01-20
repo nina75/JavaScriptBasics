@@ -16,5 +16,3 @@ function compareStr(str1, str2) {
 console.log(findLexSmallestProperty(document)); //activeElement
 console.log(findLexSmallestProperty(window)); //addEventListener
 console.log(findLexSmallestProperty(navigator)); //appCodeName
-
-
