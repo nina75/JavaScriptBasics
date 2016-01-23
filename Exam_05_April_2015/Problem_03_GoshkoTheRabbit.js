@@ -84,6 +84,57 @@ function solve(arr) {
     console.log('{"&":' + countOfLettuce + ',"*":' + countOfCabbage+ ',"#":' + countOfTurnip + ',"!":'  +countOfCarrots + ',"wall hits":'+ countOfWallHits +'}');
     console.log(output.join('|'));
 }
+function solve(arr) {
+    var directions = arr[0].split(', '),
+        garden = [],
+        row = 0,
+        col = 0,
+        result = {"&": 0,"*": 0,"#": 0,"!": 0,"wall hits": 0},
+        visited = [],
+        hitWall;
+    arr.slice(1).forEach(function(el) {
+        garden.push(el.split(', '));
+    });
+
+    directions.forEach(function(direction){
+        hitWall = false;
+        move(direction);
+        if(!hitWall) {
+            if (garden[row][col].match(/\{&}/g)) result['&']++;
+            if (garden[row][col].match(/\{\*}/g)) result['*']++;
+            if (garden[row][col].match(/\{#}/g)) result['#']++;
+            if (garden[row][col].match(/\{!}/g)) result['!']++;
+
+            garden[row][col] = garden[row][col].replace(/\{[&*#!]}/g, '@');
+            visited.push(garden[row][col]);
+        }
+    });
+
+    function move(direction) {
+        switch (direction)  {
+            case 'up':
+                if(row - 1 >= 0) {row--;}
+                else {result['wall hits']++; hitWall = true;}
+                break;
+            case 'down':
+                if(row + 1 < garden.length) {row++;}
+                else {result['wall hits']++; hitWall = true;}
+                break;
+            case 'left':
+                if(col - 1 >= 0) {col--;}
+                else {result['wall hits']++; hitWall = true;}
+                break;
+            case 'right':
+                if(col + 1 < garden[0].length) {col++;}
+                else {result['wall hits']++; hitWall = true;}
+                break;
+            default:
+                break;
+        }
+    }
+    console.log(JSON.stringify(result));
+    console.log(visited.length === 0 ? 'no' : visited.join('|'));
+}
 
 solve([
     'right, up, up, down',

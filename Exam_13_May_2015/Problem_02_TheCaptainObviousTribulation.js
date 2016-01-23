@@ -67,6 +67,51 @@ function solve(arr) {
     }
 }
 
+function solve(arr) {
+    var words = [];
+    var regex = /\s*(.+?[.?!])/g,
+        match,
+        sentences = [],
+        hasSentence = false;
+    while(match = regex.exec(arr[1])) {
+        sentences.push(match[1]);
+    }
+    
+    var allWords = arr[0]
+        .match(/\b[A-z]+\b/g)
+        .reduce(function(obj, el) {
+            if(!obj[el.toLowerCase()]) obj[el.toLowerCase()] = 1;
+            else obj[el.toLowerCase()]++;
+            return obj;
+        }, {});
+    
+    for(var word in allWords) {
+        if(allWords[word] > 2) {
+            words.push(word);
+        }
+    }
+
+    if(words.length === 0) {
+        console.log('No words');
+        return;
+    }
+    sentences.forEach(function(s){
+        var count = 0;
+        words.forEach(function(word) {
+            if(s.match(new RegExp('\\b' + word + '\\b', 'i'))){
+                count++;
+            }
+        });
+        if(count > 1) {
+            console.log(s);
+            hasSentence = true;
+        }
+    }); 
+    if(!hasSentence) {
+        console.log('No sentences');
+    }
+}
+
 //solve([
 //    "Why, why is he so crazy, so so crazy? Why?",
 //    "There are no words that you should be matching. You should be careful."

@@ -74,6 +74,71 @@ function solve(arr) {
     }
 }
 
+function solve(arr) {
+    var jumps = +arr[0],
+        trackLen = +arr[1],
+        players = [],
+        tokens,
+        gameField = [], 
+        winner,
+        hasRealWinner = false,
+        i, j, len, player;
+    if(!Array.prototype.fill) {
+        Array.prototype.fill = function(value, from ,to){
+            var from = from || 0,
+                to = to || this.length - 1,
+                i;
+            for (i = from; i <= to; i++) {
+                this[i] = value;
+            }
+            return this;
+        };
+    }
+
+    arr.slice(2).forEach(function(el){
+        tokens = el.split(', ');
+        players.push({name: tokens[0], distance: +tokens[1], position: 0});
+    });
+    players.forEach(function (player) {
+        gameField.push((new Array(trackLen)).fill('.'));
+    });
+
+    //play game
+    game:
+    while(jumps > 0) {
+        for (i = 0, len = players.length; i < len; i += 1) {
+            player = players[i];
+            player.position += player.distance;
+            if(player.position >= trackLen - 1) {
+                player.position = trackLen - 1;
+                winner = player;
+                hasRealWinner = true;
+                break game;
+            }
+        }
+        jumps--;
+    }
+    if(!hasRealWinner) {
+        winner = players[0];
+    }
+
+    for (j = 0, len = players.length; j < len; j += 1) {
+        gameField[j][players[j].position] = players[j].name[0].toUpperCase();
+        if(!hasRealWinner&&players[j].position >= winner.position) {
+            winner = players[j];
+        }
+    }
+
+    console.log(new Array(trackLen + 1).join('#'));
+    console.log(new Array(trackLen + 1).join('#'));
+    gameField.forEach(function(el){
+        console.log(el.join(''));
+    });
+    console.log(new Array(trackLen + 1).join('#'));
+    console.log(new Array(trackLen + 1).join('#'));
+    console.log('Winner: ' + winner.name);
+}
+
 //solve([
 //    '10',
 //    '19',

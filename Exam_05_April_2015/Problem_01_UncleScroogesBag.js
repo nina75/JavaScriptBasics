@@ -16,6 +16,24 @@ function solve(arr) {
     console.log('bronze : ' + bronze);
 }
 
+function solve(arr) {
+    var regex = /coin (\d+)\.?0*$/i,
+        coins = 0,
+        gold, silver, bronze;
+    arr.forEach(function(el){
+        if(regex.test(el)) {
+            coins += +(el.match(regex)[1]);
+        }
+    });
+    gold = (coins / 100) | 0;
+    silver = ((coins % 100) / 10) | 0;
+    bronze = coins % 10;
+
+    console.log('gold : ' + gold);
+    console.log('silver : ' + silver);
+    console.log('bronze : ' + bronze);
+}
+
 //solve(['coin 1','coin 2', 'coin 5', 'coin 10', 'coin 20', 'coin 50', 'coin 100', 'coin 200', 'coin 500','cigars 1']);
 //solve(['coin 1', 'coin two', 'coin 5', 'coin 10.50', 'coin 20', 'coin 50', 'coin hundred', 'cigars 1']);
 //solve(['coin one', 'coin two', 'coin five', 'coin ten', 'coin twenty', 'coin fifty', 'coin hundred', 'cigars 1']);
