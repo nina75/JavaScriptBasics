@@ -13,6 +13,24 @@ function extractHyperlinks(arr) {
         console.log(href);
     }
 }
+function solve(arr) {
+    var html = arr.join('\n');
+    var regex = /<a[^>]*href\s*=\s*([^>]+?)>(.|\n)*?<\/a>/g,
+        match,
+        hrefs = [];
+    while(match = regex.exec(html)){
+        hrefs.push(match[1]);
+    }
+    
+    hrefs.forEach(function(el) {
+        var regex1 = /^(["'])(.+?)\1/;
+        if(regex1.test(el)) {
+            console.log(el.match(regex1)[2]);
+        } else {
+            console.log(el.match(/(^[^'"].+?)\s/)[1]);
+        }
+    })
+}
 
 extractHyperlinks([
     '<!DOCTYPE html>',
