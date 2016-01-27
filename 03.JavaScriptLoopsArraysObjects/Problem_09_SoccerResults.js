@@ -47,7 +47,44 @@ function solve(arr) {
     });
     console.log(JSON.stringify(sortedTeams));
 }
+function solve(arr) {
+    var result = {},
+        sortedResult = {};
+    arr.forEach(function(el) {
+        var matches = el.match(/([A-z ]+)\s*\/([A-z ]+)\s*:\s*([-\d ]+)/),
+            country1 = matches[1].trim(),
+            country2 = matches[2].trim(),
+            matchResult = matches[3].trim().split('-'),
+            goalsCountry1 = +(matchResult[0].trim()),
+            goalsCountry2 = +(matchResult[1].trim());
+        if(!result[country1]) {
+            result[country1] = {"goalsScored": goalsCountry1,"goalsConceded": goalsCountry2, "matchesPlayedWith":[country2]};
+        } else {
+            result[country1].goalsScored += goalsCountry1;
+            result[country1].goalsConceded += goalsCountry2;
+            if(result[country1].matchesPlayedWith.indexOf(country2) == -1) {
+                result[country1].matchesPlayedWith.push(country2);
+                result[country1].matchesPlayedWith.sort();
+            }
+        }
+        if(!result[country2]) {
+            result[country2] = {"goalsScored": goalsCountry2,"goalsConceded": goalsCountry1, "matchesPlayedWith":[country1]};
+        } else {
+            result[country2].goalsScored += goalsCountry2;
+            result[country2].goalsConceded += goalsCountry1;
+            if(result[country2].matchesPlayedWith.indexOf(country1) == -1) {
+                result[country2].matchesPlayedWith.push(country1);
+                result[country2].matchesPlayedWith.sort();
+            }
+        }
+    });
 
+    Object.keys(result).sort().forEach(function(country) {
+        sortedResult[country] = result[country];
+    });
+
+    console.log(JSON.stringify(sortedResult));
+}
 //solve([
 //    'Germany / Argentina: 1-0',
 //    'Brazil / Netherlands: 0-3',

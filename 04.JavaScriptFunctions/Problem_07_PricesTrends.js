@@ -30,7 +30,26 @@ function solve(arr) {
     }
     console.log('</table>');
 }
+function solve(arr) {
+    console.log('<table>');
+    console.log('<tr><th>Price</th><th>Trend</th></tr>');
+    console.log('<tr><td>' + (+arr[0]).toFixed(2) + '</td><td><img src="fixed.png"/></td></td>');
+    for (var i = 1; i < arr.length; i += 1) {
+        var price = +((+arr[i]).toFixed(2)),
+            previous = +((+arr[i - 1]).toFixed(2)),
+            trend = '';
+        if(price > previous) {
+            trend = 'up';
+        } else if(price == previous) {
+            trend = 'fixed'
+        } else {
+            trend = 'down';
+        }
+        console.log('<tr><td>' + price.toFixed(2) + '</td><td><img src="' + trend + '.png"/></td></td>');
+    }
 
+    console.log('</table>');
+}
 //solve([50, 60]);
 //solve([36.333, 36.5, 37.019, 35.4, 35, 35.001, 36.225]);
 solve([1.33,

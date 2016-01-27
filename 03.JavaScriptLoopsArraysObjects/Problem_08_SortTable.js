@@ -23,6 +23,31 @@ function solve(arr) {
 
 }
 
+function solve(arr) {
+    var products = [];
+    arr.slice(2, arr.length - 1).forEach(function(el) {
+        var matches = el.match(/<tr><td>(.+?)<\/td><td>(.+?)<\/td><td>(.+?)<\/td><\/tr>/);
+        var product = matches[1],
+            price = matches[2],
+            votes = matches[3];
+        products.push({name: product, price: price, votes:votes});
+    });
+    products.sort(function(x, y) {
+        if(+x.price == +y.price) {
+            return x.name.localeCompare(y.name);
+        }
+        return +x.price - +y.price;
+
+    });
+    //output
+    console.log('<table>');
+    console.log('<tr><th>Product</th><th>Price</th><th>Votes</th></tr>');
+    products.forEach(function(el) {
+       console.log('<tr><td>' + el.name + '</td><td>'+ el.price + '</td><td>' + el.votes + '</td></tr>'); 
+    });
+    console.log('</table>');
+}
+
 //solve([
 //    '<table>',
 //    '<tr><th>Product</th><th>Price</th><th>Votes</th></tr>',

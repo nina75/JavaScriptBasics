@@ -58,7 +58,64 @@ function solve(arr) {
     }
 
 }
-
+function solve(arr) {
+    var result = {"I":0,"L":0,"J":0,"O":0,"Z":0,"S":0,"T":0},
+        len = arr.length,
+        rowLen = arr[0].length;
+    for (var i = 0; i < len - 1; i += 1) {
+        for (var j = 0; j < rowLen; j += 1) {
+                if(arr[i][j] === 'o') {
+                    //is L
+                    if(typeof arr[i + 2] != 'undefined' &&
+                         arr[i][j] === arr[i + 1][j] &&
+                         arr[i][j] === arr[i + 2][j] &&
+                         arr[i][j] === arr[i + 2][j + 1]) {
+                        result.L++;
+                    }
+                    //isJ
+                    if(typeof arr[i + 2] != 'undefined' &&
+                        arr[i][j] === arr[i + 1][j] &&
+                        arr[i][j] === arr[i + 2][j] &&
+                        arr[i][j] === arr[i + 2][j - 1]) {
+                        result.J++;
+                    }
+                    //isO
+                    if( arr[i][j] === arr[i][j + 1] &&
+                        arr[i][j] === arr[i + 1][j] &&
+                        arr[i][j] === arr[i + 1][j + 1]) {
+                        result.O++;
+                    }
+                    //isI
+                    if( typeof arr[i + 2] != 'undefined' &&
+                        typeof arr[i + 3] != 'undefined' &&
+                        arr[i][j] === arr[i + 1][j] &&
+                        arr[i][j] === arr[i + 2][j] &&
+                        arr[i][j] === arr[i + 3][j]) {
+                        result.I++;
+                    }
+                    //isZ
+                    if( arr[i][j] === arr[i][j + 1] &&
+                        arr[i][j] === arr[i + 1][j + 1] &&
+                        arr[i][j] === arr[i + 1][j + 2]) {
+                        result.Z++;
+                    }
+                    //isS
+                    if( arr[i][j] === arr[i][j - 1] &&
+                        arr[i][j] === arr[i + 1][j - 1] &&
+                        arr[i][j] === arr[i + 1][j - 2]) {
+                        result.S++;
+                    }
+                    //isT
+                    if( arr[i][j] === arr[i][j + 1] &&
+                        arr[i][j] === arr[i][j - 1] &&
+                        arr[i][j] === arr[i + 1][j]) {
+                        result.T++;
+                    }
+                }
+            }
+    }
+    console.log(JSON.stringify(result));
+}
 solve([
     '--o--o-',
     '--oo-oo',

@@ -42,6 +42,39 @@ function solve(arr) {
     }
 }
 
+function solve(arr) {
+    var students = {},
+        result = {};
+    arr.forEach(function(el) {
+        var parts = el.split('|'),
+            name = parts[0].trim(),
+            course = parts[1].trim(),
+            grade = +parts[2].trim(),
+            visits = +parts[3].trim();
+        if(!students[course]) {
+            students[course] = {grades: [grade], visits: [visits], students:[name]};
+        } else {
+            students[course].grades.push(grade);
+            students[course].visits.push(visits);
+            if(students[course].students.indexOf(name) === -1) {
+                students[course].students.push(name);
+            }
+        }
+    });
+    Object.keys(students).sort().forEach(function(course) {
+       result[course] = {
+           avgGrade: +(((students[course].grades.reduce(function(sum, el) {
+               return sum + el;
+           }, 0)) / students[course].grades.length).toFixed(2)),
+           avgVisits: +(((students[course].visits.reduce(function(sum, el) {
+               return sum + el;
+           }, 0)) / students[course].visits.length).toFixed(2)),
+           students: students[course].students.sort()
+       };
+    });
+    console.log(JSON.stringify(result));
+}
+
 solve([
     'Peter Nikolov | PHP  | 5.50 | 8',
     'Maria Ivanova | Java | 5.83 | 7',

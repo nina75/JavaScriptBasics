@@ -43,7 +43,44 @@ function solve(arr) {
         }
     }
 }
-
+function solve(arr) {
+    var regex = /<tr><td>.*?<\/td><td>(.+?)<\/td><td>(.+?)<\/td><td>(.+?)<\/td><\/tr>/,
+        maxSum = -Infinity,
+        maxPrices = [],
+        hasData = false;
+    arr.slice(2, arr.length - 1).forEach(function(tr) {
+        var matches = tr.match(regex),
+            price1 = +matches[1],
+            price2 = +matches[2],
+            price3 = +matches[3],
+            sum = 0;
+        if(!isNaN(price1) ) {
+            sum += price1;
+            hasData = true;
+        }
+        if(!isNaN(price2) ) {
+            sum += price2;
+            hasData = true;
+        }
+        if(!isNaN(price3) ) {
+            sum += price3;
+            hasData = true;
+        }
+        if(sum > maxSum) {
+            maxSum = sum;
+            maxPrices.length = 0;
+            if(!isNaN(price1)) maxPrices.push(matches[1]);
+            if(!isNaN(price2)) maxPrices.push(matches[2]);
+            if(!isNaN(price3)) maxPrices.push(matches[3]);
+        }
+    });
+    
+    if(!hasData) {
+        console.log('no data');
+    } else {
+        console.log(maxSum + ' = ' + maxPrices.join(' + '));
+    }
+}
 //solve([
 //    '<table>',
 //    '<tr><th>Town</th><th>Store1</th><th>Store2</th><th>Store3</th></tr>',

@@ -66,6 +66,63 @@ function solve(arr) {
     });
 }
 
+function solve(arr) {
+    var maxWordLen = 1,
+        matrix = [],
+        rotation = +(arr[0].match(/Rotate\((\d+)\)/)[1]) % 360;
+    //find max length
+    for (var i = 1; i < arr.length; i += 1) {
+        if(arr[i].length > maxWordLen) {
+            maxWordLen = arr[i].length;
+        }
+    }
+    //fill the matrix
+    for (var i = 1; i < arr.length; i += 1) {
+        var word = arr[i];
+        if(word.length < maxWordLen) {
+            for (var j = word.length; j < maxWordLen; j += 1) {
+                word = word + ' ';
+            }
+        }
+       matrix.push(word);
+    }
+
+    switch (rotation) {
+        case 0:
+            for (var i = 1; i < arr.length; i += 1) {
+                console.log(arr[i]);
+            }
+            break;
+        case 90:
+            for (var col = 0; col < maxWordLen; col += 1) {
+                var str = '';
+                for (var row = matrix.length - 1; row >= 0; row -= 1) {
+                    str += matrix[row][col];
+                }
+                console.log(str);
+            }
+            break;
+        case 180:
+            for (var row = matrix.length - 1; row >= 0; row -= 1) {
+                var str = '';
+                for (var col = maxWordLen - 1; col >= 0; col -= 1) {
+                    str += matrix[row][col];
+                }
+                console.log(str);
+            }
+            break;
+        case 270:
+            for (var col = maxWordLen - 1; col >= 0; col -= 1) {
+                var str = '';
+                for (var row = 0; row < matrix.length; row += 1) {
+                    str += matrix[row][col];
+                }
+                console.log(str);
+            }
+            break;
+    }
+}
+
 /*  hello**    esh     ***maxe    *i*
     softuni    xoe     inutfos    *n*
     exam***    afl     **olleh    ou*
