@@ -25,7 +25,33 @@ function solve(arr) {
 
     console.log(JSON.stringify(result));
 }
+function solve(arr) {
+    var result = {},
+        sortedResult = {};
+    arr.forEach(function (el) {
+        var parts = el.split(/\s+/),
+            fileName = parts[0].trim(),
+            extension = parts[1].trim(),
+            size = +(parts[2].match(/[.\d]+/)[0]);
+        if(!result[extension]) {
+            result[extension] = {files: [fileName], memory:[size]};
+        } else {
+            result[extension].files.push(fileName);
+            result[extension].memory.push(size);
+        }
+    });
+    Object.keys(result).sort().forEach(function(extension){
+        sortedResult[extension] = {
+            files: result[extension].files.sort(),
+            memory: (result[extension].memory.reduce(function(sum, el) {
+                return sum + el
+            }, 0)).toFixed(2)
+        }
+    });
+    
+    console.log(JSON.stringify(sortedResult));
 
+}
 //solve([
 //    'sentinel .exe 15MB',
 //    'zoomIt .msi 3MB',

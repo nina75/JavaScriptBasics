@@ -36,7 +36,46 @@ function solve(arr) {
     //    console.log(el.toDateString());
     //});
 }
+function solve(arr) {
+    var fans = [],
+        haters = [],
+        hasData = false;
+    arr.forEach(function(el){
+        var date = parseDateStr(el);
+        if(date > parseDateStr('01.01.1900') && date < parseDateStr('01.01.2015')) {
+            if(date < parseDateStr('25.05.1973')) {
+                haters.push(date);
+            } else {
+                fans.push(date);
+            }
+        }
+    });
+    if(fans.length > 0) {
+        fans.sort(function(x, y){
+            return y - x;
+        });
+        hasData = true;
+        console.log('The biggest fan of ewoks was born on ' + fans[0].toDateString());
+    }
+    if(haters.length > 0) {
+        haters.sort(function(x, y){
+            return x - y;
+        });
+        hasData = true;
+        console.log('The biggest hater of ewoks was born on ' + haters[0].toDateString());
+    }
+    if(!hasData) {
+        console.log('No result');
+    }
+    function parseDateStr(dateStr) {
+        var parts = dateStr .split('.'),
+            day = +parts[0],
+            month = +parts[1],
+            year = +parts[2];
 
+        return new Date(year, month - 1, day);
+    }
+}
 //solve([
 //    '22.03.2014',
 //    '17.05.1933',

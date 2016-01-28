@@ -38,7 +38,51 @@ function solve(arr) {
     });
     console.log(JSON.stringify(result));
 }
+function solve(arr) {
+    var colors = {},
+        result = {};
+    arr.forEach(function(el) {
+        var parts = el.split('|'),
+            color = parts[0],
+            type = parts[1],
+            value = parts[2];
+        if(!colors[color]) {
+            colors[color] = {
+                age: type == 'age' ? value : '-1',
+                name: type == 'name' ? value : '-1',
+                opponents: (type == 'win' || type == 'loss') ? [value] : [],
+                wins: type == 'win' ? 1 : 0,
+                loss: type == 'loss' ? 1 : 0
+            };
+        } else {
+            if(type == 'win') {
+                colors[color].wins++;
+                colors[color].opponents.push(value);
+            } else if(type == 'loss') {
+                colors[color].loss++;
+                colors[color].opponents.push(value);
+            } else if(type == 'name') {
+                colors[color].name = value;
+            } else {
+                colors[color].age = value;
+            }
 
+        }
+    });
+    Object.keys(colors).sort().forEach(function(color) {
+        if(colors[color].age !== '-1' && colors[color].name !== '-1') {
+            result[color] = {
+                age: colors[color].age,
+                name: colors[color].name,
+                opponents: colors[color].opponents.sort(),
+                rank: ((colors[color].wins + 1) / (colors[color].loss + 1)).toFixed(2)
+            }
+        }
+
+    });
+
+    console.log(JSON.stringify(result));
+}
 solve([
     'purple|age|99',
     'red|age|44',
