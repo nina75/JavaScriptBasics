@@ -70,6 +70,63 @@ function solve(arr) {
     console.log(JSON.stringify(result));
 }
 
+function solve(arr) {
+    var criteria = arr[0],
+        result = { students:[], trainers: []},
+        sortedResult = {};
+    for (var i = 1; i < arr.length; i += 1) {
+        var person = JSON.parse(arr[i]);
+        if(person.role == 'student') {
+            result.students.push({
+               id: person.id,
+               firstname: person.firstname,
+               lastname: person.lastname,
+               averageGrade: (person.grades.reduce(sum, 0) / person.grades.length).toFixed(2),
+               certificate: person.certificate,
+               level: person.level
+            });
+        } else {
+            result.trainers.push({
+                id: person.id,
+                firstname: person.firstname,
+                lastname: person.lastname,
+                courses: person.courses,
+                lecturesPerDay: person.lecturesPerDay
+            });
+        }
+    }
+
+    result.trainers.sort(function(x, y) {
+        if(x.courses.length === y.courses.length) {
+            return x.lecturesPerDay - y.lecturesPerDay;
+        }
+        return x.courses.length - y.courses.length;
+    });
+
+    if(criteria === 'level^courses') {
+        result.students.sort(function(x, y) {
+            if(x.level === y.level) {
+                return x.id - y.id;
+            }
+            return x.level - y.level;
+        });
+    } else {
+        result.students.sort(function(x, y) {
+            if(x.firstname === y.firstname) {
+                return x.lastname.localeCompare(y.lastname);
+            }
+            return x.firstname.localeCompare(y.firstname);
+        });
+    }
+    result.students.forEach(function(el){
+        delete(el.level);
+    });
+    function sum(sum, el) {
+        return sum + +el;
+    }
+    console.log(JSON.stringify(result));
+    
+}
 solve([
     'name^courses',
     '{"id":0,"firstname":"Svetlin","lastname":"Daskalov","town":"Vidin","role":"trainer","courses":["Database","ASP.NET","JS Apps","PHP"],"lecturesPerDay":4}',

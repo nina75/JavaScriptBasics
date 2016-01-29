@@ -48,7 +48,54 @@ function solve(arr) {
         }
 
         return sortedObj;
+}
+function solve(arr) {
+    var result = {},
+        sortedResultByName = {},
+        sortedResultByWeight = {},
+        criteria = arr[arr.length - 1];
+    for (var i = 0, len = arr.length; i < len - 1; i += 1) {
+        var parts = arr[i].split(/\.*\*\.*/),
+            ownerName = parts[0],
+            luggageName = parts[1],
+            isFood = parts[2],
+            isDrink = parts[3],
+            isFragile = (parts[4] === 'true' ? true : false),
+            weight = +parts[5],
+            transferredWith = parts[6],
+            type = (isFood === 'true' ? 'food' : (isDrink === 'true' ? 'drink' : 'other'));
+        if(!result[ownerName]) {
+            result[ownerName] = {};
+        }
+        result[ownerName][luggageName] = { kg: weight, fragile: isFragile, type: type, transferredWith: transferredWith}
     }
+    
+    Object.keys(result).forEach(function(ownerName) {
+        sortedResultByName[ownerName] = {};
+        Object.keys(result[ownerName]).sort().forEach(function(luggageName) {
+            sortedResultByName[ownerName][luggageName] = result[ownerName][luggageName];
+        });
+    });
+
+    Object.keys(result).forEach(function(ownerName) {
+        sortedResultByWeight[ownerName] = {};
+        Object.keys(result[ownerName]).sort(function(x, y) {
+            return result[ownerName][x].kg - result[ownerName][y].kg;
+        }).forEach(function(luggageName) {
+            sortedResultByWeight[ownerName][luggageName] = result[ownerName][luggageName];
+        });
+    });
+
+
+    if(criteria == 'strict') {
+        console.log(JSON.stringify(result));
+    } else if(criteria == 'luggage name') {
+        console.log(JSON.stringify(sortedResultByName));
+    } else {
+        console.log(JSON.stringify(sortedResultByWeight));
+        
+    }
+}
     
     //function sortByWeight(obj) {
     //    var sortedObj = {};

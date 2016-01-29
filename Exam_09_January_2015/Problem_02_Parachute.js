@@ -45,6 +45,56 @@ function solve(arr) {
     }
 }
 
+function solve(arr) {
+    Array.prototype.countElement = function(element) {
+        return this.reduce(function(count, el) {
+            return count += (el === element ? 1 : 0);
+        }, 0);
+    };
+
+    var matrix = [], xCoord, yCoord, rowsCount, colCount, position, wind, msg;
+
+    //fill the matrix
+    arr.forEach(function(el) {
+       matrix.push(el.split(''));
+    });
+    rowsCount = matrix.length;
+    colCount = matrix[0].length;
+    
+    //find starting parachute position
+
+    outerLoop:
+    for (var i = 0; i < rowsCount; i += 1) {
+        for (var j = 0; j < colCount; j += 1) {
+            if(matrix[i][j] === 'o') {
+                xCoord = i;
+                yCoord = j;
+                break outerLoop;
+            }
+        }
+    }
+    //falling
+    while(true) {
+        xCoord += 1;
+        wind = matrix[xCoord].countElement('>') - matrix[xCoord].countElement('<');
+        yCoord += wind;
+        position = matrix[xCoord][yCoord];
+        if(position === '_') {
+            msg = 'Landed on the ground like a boss!';
+            break;
+        }
+        if(position === '~') {
+            msg = 'Drowned in the water like a cat!';
+            break;
+        }
+        if(position === '/' || position === '\\' || position === '|') {
+            msg = 'Got smacked on the rock like a dog!';
+            break;
+        }
+    }
+    console.log(msg);
+    console.log(xCoord + ' ' + yCoord);
+}
 //solve([
 //    '--o----------------------',
 //    '>------------------------',

@@ -24,7 +24,33 @@ function solve(arr) {
         console.log(carModel + ' ' +  fuelType + ' ' + routeNumber + ' ' + Math.round(totalCons));
     });
 }
+function solve(arr) {
+    arr.forEach(function(el){
+        var parts = el.split(' '),
+            carModel = parts[0].trim(),
+            fuelType = parts[1].trim(),
+            routeNumber = parts[2].trim(),
+            luggageWeight = +parts[3].trim(),
+            totalFuelConsumption,
+            fuelConsumption = 10;//liters/100km
+        switch (fuelType) {
+            case 'gas':
+                fuelConsumption *= 1.2;
+                break;
+            case 'diesel':
+                fuelConsumption *= 0.8;
+                break;
+        }
+        fuelConsumption += luggageWeight * 0.01;
+        if(routeNumber === '1') {
+            totalFuelConsumption = (fuelConsumption * 100 + 10 *(fuelConsumption * 1.3)) / 100;
+        } else {
+            totalFuelConsumption = (fuelConsumption * 65 + 30 *(fuelConsumption * 1.3)) / 100;
+        }
 
+        console.log(carModel + ' ' + fuelType + ' ' + routeNumber + ' ' + Math.round(totalFuelConsumption));
+    });
+}
 solve([
     'BMW petrol 1 320.5',
     'Golf petrol 2 150.75',
